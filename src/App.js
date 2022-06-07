@@ -1,25 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
+import HexToRgb from './components/HexToRgb';
+import { useState } from 'react';
 
-function App() {
+const App = () => {
+  const [form, setForm] = useState({
+    color: '',
+    finishInput: false,
+  });
+
+  const handleChange = (evt) => {
+    setForm(prevForm => ({...prevForm, color: evt.target.value}));
+    if(evt.target.value.length === 7) {
+      setForm(prevForm => ({...prevForm, finishInput: true}));
+    } else if (evt.target.value.length < 7) {
+        setForm(prevForm => ({...prevForm, finishInput: false}));
+      } 
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <HexToRgb form={form} onChange={handleChange}/>
+  )
 }
 
 export default App;
